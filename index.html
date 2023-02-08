@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
+    <script
+        src="https://kit.fontawesome.com/64d58efce2.js"
+        crossorigin="anonymous"
+      ></script>
+    <title>Test task</title>
+    <script>
+        $(document).ready(function() {
+          $('#form').submit(function() { 
+            if (document.form.name.value == '' || document.form.tel.value == '' || document.form.email.value == '' || document.form.message.value == '' ) {
+              valid = false;
+              return valid;
+            }
+            $.ajax({
+              type: "POST",
+              url: "send.php",
+              data: $(this).serialize()
+            }).done(function() {
+              $('.js-overlay-thank-you').fadeIn();
+              $(this).find('input').val('');
+              $('#form').trigger('reset');
+            });
+            return false;
+          });
+        });
+        </script>
+</head>
+<body>
+    <div class="home_block">
+        <div class="container">
+            <div class="home_wrapper">
+                <div class="title_text">
+                    <p class="text_1">Отправить заявку на участие в семинаре</p>
+                    <p class="text_2">Организаторы свяжутся с вами для подтверждения записи.
+Участие в семинаре <span>бесплатное</span> </p>
+                </div>
+                <form id="form" name="form">
+                    <label>Ваше имя:</label>
+                    <input type="text" id="name_input" name="name" placeholder="Иванов Алексей" required maxlength="30"/>
+                    <label>Контактный email:</label>
+                    <input type="email" id="email_input" name = "email" placeholder="example@mail.ru"/>
+                    <label>Интересующий семинар:</label>
+                    <select id="seminar" name="seminar">
+                        <option value = "JS">JS</option>
+                        <option value = "Python">Python</option>
+                        <option value = "QA">QA</option>
+                    </select>
+                </form>
+                <div class="button_block">
+                    <div class="text_button_block">
+                        <p class="text">Все пол обязательны для заполнения. 
+Отправляя заявку, вы соглашаетесь с договором публичной оферты
+и политики обработки данных.</p>
+                    </div>
+                    <div class="btn">
+                        <button id="btn" >Отправить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/index.js"></script>
+</body>
+</html>
